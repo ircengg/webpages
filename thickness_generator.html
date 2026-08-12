@@ -6,7 +6,7 @@
 
     <title>Precision Thickness Data Generator</title>
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Excel -->
@@ -31,7 +31,7 @@
                     }
                 }
             }
-        }
+        };
     </script>
 
     <style>
@@ -43,7 +43,7 @@
         }
 
         .glass {
-            background: rgba(255,255,255,.86);
+            background: rgba(255,255,255,.88);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
@@ -68,7 +68,7 @@
         }
 
         .fade-in {
-            animation: fadeIn .35s ease-out;
+            animation: fadeIn .3s ease-out;
         }
 
         @keyframes fadeIn {
@@ -76,6 +76,7 @@
                 opacity: 0;
                 transform: translateY(5px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -84,85 +85,120 @@
     </style>
 </head>
 
+
 <body class="min-h-screen text-slate-800">
 
 <div class="max-w-7xl mx-auto px-4 py-8 md:px-8">
 
-    <!-- Header -->
+    <!-- HEADER -->
     <header class="mb-8">
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+
+        <div class="flex flex-col md:flex-row md:items-center
+                    md:justify-between gap-5">
 
             <div>
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full
-                            bg-sky-100 text-sky-700 text-xs font-semibold mb-3">
+
+                <div class="inline-flex items-center gap-2
+                            px-3 py-1.5 rounded-full
+                            bg-sky-100 text-sky-700
+                            text-xs font-semibold mb-3">
+
                     <span class="w-2 h-2 bg-sky-500 rounded-full"></span>
+
                     Thickness Data Utility
+
                 </div>
 
-                <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
+                <h1 class="text-3xl md:text-4xl font-bold
+                           tracking-tight text-slate-900">
+
                     Precision Thickness Data Generator
+
                 </h1>
 
                 <p class="mt-2 text-slate-500 max-w-2xl">
-                    Generate realistic-looking thickness readings within a defined
+
+                    Generate thickness readings within a specified
                     range and export them directly to Excel or Word.
+
                 </p>
+
             </div>
 
-            <div class="hidden md:flex items-center justify-center w-14 h-14 rounded-2xl
-                        bg-sky-600 text-white shadow-lg shadow-sky-600/20">
+
+            <div class="hidden md:flex items-center justify-center
+                        w-14 h-14 rounded-2xl bg-sky-600 text-white
+                        shadow-lg shadow-sky-600/20">
+
                 <svg xmlns="http://www.w3.org/2000/svg"
                      class="w-7 h-7"
                      fill="none"
                      viewBox="0 0 24 24"
                      stroke="currentColor">
+
                     <path stroke-linecap="round"
                           stroke-linejoin="round"
                           stroke-width="1.7"
                           d="M9 3v2m6-2v2M4 8h16M5 5h14a1 1 0 011 1v13a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z"/>
+
                 </svg>
+
             </div>
 
         </div>
+
     </header>
 
 
-    <!-- Main Grid -->
+    <!-- MAIN -->
     <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
 
-        <!-- Settings -->
+
+        <!-- SETTINGS -->
         <section class="xl:col-span-4">
 
-            <div class="glass rounded-3xl border border-white shadow-xl shadow-slate-200/50 p-6">
+            <div class="glass rounded-3xl border border-white
+                        shadow-xl shadow-slate-200/50 p-6">
 
                 <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600
+
+                    <div class="w-10 h-10 rounded-xl
+                                bg-sky-100 text-sky-600
                                 flex items-center justify-center">
+
                         <svg xmlns="http://www.w3.org/2000/svg"
                              class="w-5 h-5"
                              fill="none"
                              viewBox="0 0 24 24"
                              stroke="currentColor">
+
                             <path stroke-linecap="round"
                                   stroke-linejoin="round"
                                   stroke-width="1.8"
                                   d="M12 6v12m-6-6h12"/>
+
                         </svg>
+
                     </div>
 
                     <div>
+
                         <h2 class="font-bold text-lg text-slate-900">
                             Generator Settings
                         </h2>
+
                         <p class="text-xs text-slate-500">
                             Configure your thickness matrix
                         </p>
+
                     </div>
+
                 </div>
 
 
-                <!-- Thickness Range -->
+                <!-- THICKNESS RANGE -->
                 <div class="mb-6">
+
                     <label class="block text-sm font-semibold mb-2">
                         Thickness Range
                     </label>
@@ -170,6 +206,7 @@
                     <div class="grid grid-cols-2 gap-3">
 
                         <div>
+
                             <label class="text-xs text-slate-500 mb-1 block">
                                 Minimum
                             </label>
@@ -179,14 +216,18 @@
                                 type="number"
                                 step="any"
                                 value="4.55"
-                                class="number-input w-full px-4 py-3 rounded-xl
-                                       border border-slate-200 bg-white
-                                       focus:outline-none focus:ring-4
-                                       focus:ring-sky-100 focus:border-sky-500"
+                                class="number-input w-full px-4 py-3
+                                       rounded-xl border border-slate-200
+                                       bg-white focus:outline-none
+                                       focus:ring-4 focus:ring-sky-100
+                                       focus:border-sky-500"
                             >
+
                         </div>
 
+
                         <div>
+
                             <label class="text-xs text-slate-500 mb-1 block">
                                 Maximum
                             </label>
@@ -196,18 +237,21 @@
                                 type="number"
                                 step="any"
                                 value="5.67"
-                                class="number-input w-full px-4 py-3 rounded-xl
-                                       border border-slate-200 bg-white
-                                       focus:outline-none focus:ring-4
-                                       focus:ring-sky-100 focus:border-sky-500"
+                                class="number-input w-full px-4 py-3
+                                       rounded-xl border border-slate-200
+                                       bg-white focus:outline-none
+                                       focus:ring-4 focus:ring-sky-100
+                                       focus:border-sky-500"
                             >
+
                         </div>
 
                     </div>
+
                 </div>
 
 
-                <!-- Decimal Places -->
+                <!-- DECIMAL PLACES -->
                 <div class="mb-6">
 
                     <label class="block text-sm font-semibold mb-2">
@@ -216,8 +260,9 @@
 
                     <select
                         id="decimalPlaces"
-                        class="w-full px-4 py-3 rounded-xl border border-slate-200
-                               bg-white focus:outline-none focus:ring-4
+                        class="w-full px-4 py-3 rounded-xl
+                               border border-slate-200 bg-white
+                               focus:outline-none focus:ring-4
                                focus:ring-sky-100 focus:border-sky-500">
 
                         <option value="0">0</option>
@@ -227,10 +272,11 @@
                         <option value="4">4</option>
 
                     </select>
+
                 </div>
 
 
-                <!-- Rows / Columns -->
+                <!-- MATRIX -->
                 <div class="mb-6">
 
                     <label class="block text-sm font-semibold mb-2">
@@ -240,6 +286,7 @@
                     <div class="grid grid-cols-2 gap-3">
 
                         <div>
+
                             <label class="text-xs text-slate-500 mb-1 block">
                                 Rows
                             </label>
@@ -250,14 +297,18 @@
                                 min="1"
                                 max="500"
                                 value="10"
-                                class="number-input w-full px-4 py-3 rounded-xl
-                                       border border-slate-200 bg-white
-                                       focus:outline-none focus:ring-4
-                                       focus:ring-sky-100 focus:border-sky-500"
+                                class="number-input w-full px-4 py-3
+                                       rounded-xl border border-slate-200
+                                       bg-white focus:outline-none
+                                       focus:ring-4 focus:ring-sky-100
+                                       focus:border-sky-500"
                             >
+
                         </div>
 
+
                         <div>
+
                             <label class="text-xs text-slate-500 mb-1 block">
                                 Columns
                             </label>
@@ -268,18 +319,21 @@
                                 min="1"
                                 max="100"
                                 value="8"
-                                class="number-input w-full px-4 py-3 rounded-xl
-                                       border border-slate-200 bg-white
-                                       focus:outline-none focus:ring-4
-                                       focus:ring-sky-100 focus:border-sky-500"
+                                class="number-input w-full px-4 py-3
+                                       rounded-xl border border-slate-200
+                                       bg-white focus:outline-none
+                                       focus:ring-4 focus:ring-sky-100
+                                       focus:border-sky-500"
                             >
+
                         </div>
 
                     </div>
+
                 </div>
 
 
-                <!-- Column Labels -->
+                <!-- COLUMN LABELS -->
                 <div class="mb-6">
 
                     <div class="flex items-center justify-between mb-2">
@@ -289,38 +343,61 @@
                         </label>
 
                         <span class="text-xs text-slate-400">
-                            Example: T-1
+                            Prefix
                         </span>
 
                     </div>
 
-                    <select
+
+                    <input
                         id="columnFormat"
-                        class="w-full px-4 py-3 rounded-xl border border-slate-200
-                               bg-white mb-3 focus:outline-none focus:ring-4
-                               focus:ring-sky-100 focus:border-sky-500">
+                        type="text"
+                        value="T-"
+                        placeholder="e.g. T-, XXX-, dd/, ff"
+                        class="w-full px-4 py-3 rounded-xl
+                               border border-slate-200 bg-white
+                               focus:outline-none focus:ring-4
+                               focus:ring-sky-100 focus:border-sky-500"
+                    >
 
-                        <option value="T-">T-1, T-2, T-3...</option>
-                        <option value="">No label prefix</option>
 
-                    </select>
+                    <div class="mt-2 text-xs text-slate-400">
+
+                        Examples:
+                        <span class="font-mono">T-</span> →
+                        T-1, T-2, T-3
+
+                        &nbsp; • &nbsp;
+
+                        <span class="font-mono">dd/</span> →
+                        dd/1, dd/2, dd/3
+
+                    </div>
+
+
+                    <label class="text-xs text-slate-500
+                                  mb-1 mt-3 block">
+
+                        Column label start
+
+                    </label>
 
                     <input
                         id="columnStart"
                         type="number"
                         value="1"
                         min="0"
-                        class="number-input w-full px-4 py-3 rounded-xl
-                               border border-slate-200 bg-white
-                               focus:outline-none focus:ring-4
-                               focus:ring-sky-100 focus:border-sky-500"
-                        placeholder="Column label start"
+                        class="number-input w-full px-4 py-3
+                               rounded-xl border border-slate-200
+                               bg-white focus:outline-none
+                               focus:ring-4 focus:ring-sky-100
+                               focus:border-sky-500"
                     >
 
                 </div>
 
 
-                <!-- Row Labels -->
+                <!-- ROW LABELS -->
                 <div class="mb-6">
 
                     <div class="flex items-center justify-between mb-2">
@@ -330,43 +407,61 @@
                         </label>
 
                         <span class="text-xs text-slate-400">
-                            Example: Distance-1
+                            Prefix
                         </span>
 
                     </div>
 
-                    <select
+
+                    <input
                         id="rowFormat"
-                        class="w-full px-4 py-3 rounded-xl border border-slate-200
-                               bg-white mb-3 focus:outline-none focus:ring-4
-                               focus:ring-sky-100 focus:border-sky-500">
+                        type="text"
+                        value="Distance-"
+                        placeholder="e.g. Distance-, D-, Chainage/"
+                        class="w-full px-4 py-3 rounded-xl
+                               border border-slate-200 bg-white
+                               focus:outline-none focus:ring-4
+                               focus:ring-sky-100 focus:border-sky-500"
+                    >
 
-                        <option value="Distance-">
-                            Distance-1, Distance-2...
-                        </option>
 
-                        <option value="">
-                            No label prefix
-                        </option>
+                    <div class="mt-2 text-xs text-slate-400">
 
-                    </select>
+                        Examples:
+                        <span class="font-mono">Distance-</span> →
+                        Distance-1, Distance-2
+
+                        &nbsp; • &nbsp;
+
+                        <span class="font-mono">D-</span> →
+                        D-1, D-2
+
+                    </div>
+
+
+                    <label class="text-xs text-slate-500
+                                  mb-1 mt-3 block">
+
+                        Row label start
+
+                    </label>
 
                     <input
                         id="rowStart"
                         type="number"
                         value="1"
                         min="0"
-                        class="number-input w-full px-4 py-3 rounded-xl
-                               border border-slate-200 bg-white
-                               focus:outline-none focus:ring-4
-                               focus:ring-sky-100 focus:border-sky-500"
-                        placeholder="Row label start"
+                        class="number-input w-full px-4 py-3
+                               rounded-xl border border-slate-200
+                               bg-white focus:outline-none
+                               focus:ring-4 focus:ring-sky-100
+                               focus:border-sky-500"
                     >
 
                 </div>
 
 
-                <!-- Export Format -->
+                <!-- EXPORT FORMAT -->
                 <div class="mb-6">
 
                     <label class="block text-sm font-semibold mb-2">
@@ -374,6 +469,7 @@
                     </label>
 
                     <div class="grid grid-cols-2 gap-3">
+
 
                         <label class="cursor-pointer">
 
@@ -385,9 +481,11 @@
                                 class="peer hidden"
                             >
 
-                            <div class="p-4 rounded-xl border-2 border-slate-200
+                            <div class="p-4 rounded-xl border-2
+                                        border-slate-200
                                         peer-checked:border-sky-500
-                                        peer-checked:bg-sky-50 transition">
+                                        peer-checked:bg-sky-50
+                                        transition">
 
                                 <div class="font-bold text-sm">
                                     Excel
@@ -411,9 +509,11 @@
                                 class="peer hidden"
                             >
 
-                            <div class="p-4 rounded-xl border-2 border-slate-200
+                            <div class="p-4 rounded-xl border-2
+                                        border-slate-200
                                         peer-checked:border-sky-500
-                                        peer-checked:bg-sky-50 transition">
+                                        peer-checked:bg-sky-50
+                                        transition">
 
                                 <div class="font-bold text-sm">
                                     Word
@@ -432,25 +532,28 @@
                 </div>
 
 
-                <!-- Buttons -->
+                <!-- BUTTONS -->
                 <div class="grid grid-cols-2 gap-3">
 
                     <button
                         onclick="generateData()"
-                        class="py-3.5 px-4 rounded-xl bg-sky-600
-                               hover:bg-sky-700 text-white font-semibold
-                               shadow-lg shadow-sky-600/20 transition
-                               active:scale-[.98]">
+                        class="py-3.5 px-4 rounded-xl
+                               bg-sky-600 hover:bg-sky-700
+                               text-white font-semibold
+                               shadow-lg shadow-sky-600/20
+                               transition active:scale-[.98]">
 
                         Generate
 
                     </button>
 
+
                     <button
                         onclick="clearData()"
-                        class="py-3.5 px-4 rounded-xl bg-slate-100
-                               hover:bg-slate-200 text-slate-700
-                               font-semibold transition">
+                        class="py-3.5 px-4 rounded-xl
+                               bg-slate-100 hover:bg-slate-200
+                               text-slate-700 font-semibold
+                               transition">
 
                         Reset
 
@@ -463,17 +566,19 @@
         </section>
 
 
-        <!-- Preview -->
+        <!-- PREVIEW -->
         <section class="xl:col-span-8">
 
-            <div class="glass rounded-3xl border border-white shadow-xl
-                        shadow-slate-200/50 overflow-hidden">
+            <div class="glass rounded-3xl border border-white
+                        shadow-xl shadow-slate-200/50 overflow-hidden">
 
-                <!-- Preview Header -->
+
+                <!-- PREVIEW HEADER -->
                 <div class="p-6 border-b border-slate-100">
 
-                    <div class="flex flex-col sm:flex-row sm:items-center
-                                sm:justify-between gap-4">
+                    <div class="flex flex-col sm:flex-row
+                                sm:items-center sm:justify-between
+                                gap-4">
 
                         <div>
 
@@ -483,28 +588,34 @@
 
                             <p id="statusText"
                                class="text-xs text-slate-500 mt-1">
+
                                 Configure settings and click Generate.
+
                             </p>
 
                         </div>
+
 
                         <div class="flex gap-2">
 
                             <button
                                 onclick="copyData()"
-                                class="px-4 py-2.5 rounded-xl bg-slate-100
-                                       hover:bg-slate-200 text-sm font-semibold
+                                class="px-4 py-2.5 rounded-xl
+                                       bg-slate-100 hover:bg-slate-200
+                                       text-sm font-semibold
                                        text-slate-700 transition">
 
                                 Copy
 
                             </button>
 
+
                             <button
                                 onclick="exportData()"
-                                class="px-4 py-2.5 rounded-xl bg-slate-900
-                                       hover:bg-slate-800 text-white text-sm
-                                       font-semibold transition">
+                                class="px-4 py-2.5 rounded-xl
+                                       bg-slate-900 hover:bg-slate-800
+                                       text-white text-sm font-semibold
+                                       transition">
 
                                 Export
 
@@ -517,7 +628,7 @@
                 </div>
 
 
-                <!-- Table -->
+                <!-- TABLE -->
                 <div class="table-scroll overflow-auto max-h-[650px]">
 
                     <table class="w-full text-sm border-collapse">
@@ -534,12 +645,14 @@
 
                     </table>
 
+
                     <div
                         id="emptyState"
                         class="py-24 text-center text-slate-400">
 
-                        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl
-                                    bg-slate-100 flex items-center justify-center">
+                        <div class="w-16 h-16 mx-auto mb-4
+                                    rounded-2xl bg-slate-100
+                                    flex items-center justify-center">
 
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="w-7 h-7"
@@ -571,46 +684,65 @@
             </div>
 
 
-            <!-- Info Cards -->
+            <!-- INFO -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
 
-                <div class="bg-white rounded-2xl border border-slate-200 p-5">
 
-                    <p class="text-xs text-slate-400 uppercase tracking-wider">
+                <div class="bg-white rounded-2xl
+                            border border-slate-200 p-5">
+
+                    <p class="text-xs text-slate-400
+                              uppercase tracking-wider">
+
                         Range
+
                     </p>
 
                     <p id="rangeInfo"
                        class="font-bold text-lg mt-1">
+
                         4.55 – 5.67
+
                     </p>
 
                 </div>
 
 
-                <div class="bg-white rounded-2xl border border-slate-200 p-5">
+                <div class="bg-white rounded-2xl
+                            border border-slate-200 p-5">
 
-                    <p class="text-xs text-slate-400 uppercase tracking-wider">
+                    <p class="text-xs text-slate-400
+                              uppercase tracking-wider">
+
                         Matrix
+
                     </p>
 
                     <p id="matrixInfo"
                        class="font-bold text-lg mt-1">
+
                         10 × 8
+
                     </p>
 
                 </div>
 
 
-                <div class="bg-white rounded-2xl border border-slate-200 p-5">
+                <div class="bg-white rounded-2xl
+                            border border-slate-200 p-5">
 
-                    <p class="text-xs text-slate-400 uppercase tracking-wider">
+                    <p class="text-xs text-slate-400
+                              uppercase tracking-wider">
+
                         Readings
+
                     </p>
 
                     <p id="readingInfo"
                        class="font-bold text-lg mt-1">
+
                         80
+
                     </p>
 
                 </div>
@@ -622,9 +754,11 @@
     </div>
 
 
-    <!-- Footer -->
-    <footer class="text-center text-xs text-slate-400 mt-10 pb-4">
+    <footer class="text-center text-xs text-slate-400
+                   mt-10 pb-4">
+
         Precision Thickness Data Generator
+
     </footer>
 
 </div>
@@ -635,65 +769,104 @@
 let generatedData = [];
 
 
-/* ---------------------------------------
-   Generate random thickness
---------------------------------------- */
+/* ============================================================
+   RANDOM THICKNESS
+============================================================ */
 
 function randomThickness(min, max, decimals) {
 
-    const value = Math.random() * (max - min) + min;
+    const value =
+        Math.random() * (max - min) + min;
 
-    return Number(value.toFixed(decimals));
+    return Number(
+        value.toFixed(decimals)
+    );
 
 }
 
 
-/* ---------------------------------------
-   Generate data
---------------------------------------- */
+/* ============================================================
+   GET SETTINGS
+============================================================ */
+
+function getSettings() {
+
+    return {
+
+        min:
+            parseFloat(
+                document.getElementById("minThickness").value
+            ),
+
+        max:
+            parseFloat(
+                document.getElementById("maxThickness").value
+            ),
+
+        decimals:
+            parseInt(
+                document.getElementById("decimalPlaces").value
+            ),
+
+        rows:
+            parseInt(
+                document.getElementById("rows").value
+            ),
+
+        columns:
+            parseInt(
+                document.getElementById("columns").value
+            ),
+
+        columnPrefix:
+            document.getElementById("columnFormat").value,
+
+        columnStart:
+            parseInt(
+                document.getElementById("columnStart").value
+            ),
+
+        rowPrefix:
+            document.getElementById("rowFormat").value,
+
+        rowStart:
+            parseInt(
+                document.getElementById("rowStart").value
+            )
+
+    };
+
+}
+
+
+/* ============================================================
+   GENERATE DATA
+============================================================ */
 
 function generateData() {
 
-    const min = parseFloat(
-        document.getElementById("minThickness").value
-    );
-
-    const max = parseFloat(
-        document.getElementById("maxThickness").value
-    );
-
-    const decimals = parseInt(
-        document.getElementById("decimalPlaces").value
-    );
-
-    const rows = parseInt(
-        document.getElementById("rows").value
-    );
-
-    const columns = parseInt(
-        document.getElementById("columns").value
-    );
-
-    const columnFormat =
-        document.getElementById("columnFormat").value;
-
-    const columnStart =
-        parseInt(document.getElementById("columnStart").value);
-
-    const rowFormat =
-        document.getElementById("rowFormat").value;
-
-    const rowStart =
-        parseInt(document.getElementById("rowStart").value);
+    const settings = getSettings();
 
 
     if (
-        Number.isNaN(min) ||
-        Number.isNaN(max) ||
-        min >= max
+        Number.isNaN(settings.min) ||
+        Number.isNaN(settings.max)
     ) {
 
-        alert("Please enter a valid minimum and maximum thickness.");
+        alert(
+            "Please enter valid minimum and maximum thickness."
+        );
+
+        return;
+
+    }
+
+
+    if (settings.min >= settings.max) {
+
+        alert(
+            "Maximum thickness must be greater than minimum thickness."
+        );
 
         return;
 
@@ -701,11 +874,27 @@ function generateData() {
 
 
     if (
-        rows < 1 ||
-        columns < 1
+        settings.rows < 1 ||
+        settings.columns < 1
     ) {
 
-        alert("Rows and columns must be at least 1.");
+        alert(
+            "Rows and columns must be at least 1."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        Number.isNaN(settings.columnStart) ||
+        Number.isNaN(settings.rowStart)
+    ) {
+
+        alert(
+            "Please enter valid label starting numbers."
+        );
 
         return;
 
@@ -715,26 +904,38 @@ function generateData() {
     generatedData = [];
 
 
-    /* Header */
+    /* HEADER */
 
     const header = [];
 
-    if (rowFormat !== "") {
+
+    /*
+        If row prefix is not empty,
+        first column becomes row-label column.
+    */
+
+    if (settings.rowPrefix !== "") {
 
         header.push("Distance");
 
     }
 
 
-    for (let c = 0; c < columns; c++) {
+    for (
+        let c = 0;
+        c < settings.columns;
+        c++
+    ) {
 
-        const labelNumber = columnStart + c;
+        const number =
+            settings.columnStart + c;
 
-        header.push(
-            columnFormat === ""
-                ? String(labelNumber)
-                : columnFormat + labelNumber
-        );
+
+        const label =
+            settings.columnPrefix + number;
+
+
+        header.push(label);
 
     }
 
@@ -742,34 +943,46 @@ function generateData() {
     generatedData.push(header);
 
 
-    /* Rows */
+    /* DATA ROWS */
 
-    for (let r = 0; r < rows; r++) {
+    for (
+        let r = 0;
+        r < settings.rows;
+        r++
+    ) {
 
         const row = [];
 
-        if (rowFormat !== "") {
 
-            const labelNumber = rowStart + r;
+        if (settings.rowPrefix !== "") {
+
+            const rowNumber =
+                settings.rowStart + r;
+
 
             row.push(
-                rowFormat + labelNumber
+                settings.rowPrefix + rowNumber
             );
 
         }
 
 
-        for (let c = 0; c < columns; c++) {
+        for (
+            let c = 0;
+            c < settings.columns;
+            c++
+        ) {
 
             row.push(
                 randomThickness(
-                    min,
-                    max,
-                    decimals
+                    settings.min,
+                    settings.max,
+                    settings.decimals
                 )
             );
 
         }
+
 
         generatedData.push(row);
 
@@ -778,19 +991,20 @@ function generateData() {
 
     renderTable();
 
+
     updateStats(
-        min,
-        max,
-        rows,
-        columns
+        settings.min,
+        settings.max,
+        settings.rows,
+        settings.columns
     );
 
 }
 
 
-/* ---------------------------------------
-   Render table
---------------------------------------- */
+/* ============================================================
+   RENDER TABLE
+============================================================ */
 
 function renderTable() {
 
@@ -805,6 +1019,7 @@ function renderTable() {
 
 
     head.innerHTML = "";
+
     body.innerHTML = "";
 
 
@@ -820,7 +1035,7 @@ function renderTable() {
     empty.style.display = "none";
 
 
-    /* Header */
+    /* HEADER */
 
     const headerRow =
         document.createElement("tr");
@@ -832,10 +1047,15 @@ function renderTable() {
             const th =
                 document.createElement("th");
 
-            th.textContent = cell;
+
+            th.textContent =
+                cell;
+
 
             th.className =
-                "px-4 py-3 text-left font-semibold text-slate-600 whitespace-nowrap";
+                "px-4 py-3 text-left font-semibold " +
+                "text-slate-600 whitespace-nowrap";
+
 
             if (index === 0) {
 
@@ -843,6 +1063,7 @@ function renderTable() {
                     " sticky left-0 bg-slate-100";
 
             }
+
 
             headerRow.appendChild(th);
 
@@ -853,12 +1074,17 @@ function renderTable() {
     head.appendChild(headerRow);
 
 
-    /* Body */
+    /* BODY */
 
-    for (let r = 1; r < generatedData.length; r++) {
+    for (
+        let r = 1;
+        r < generatedData.length;
+        r++
+    ) {
 
         const tr =
             document.createElement("tr");
+
 
         tr.className =
             "hover:bg-sky-50/50 transition";
@@ -870,15 +1096,20 @@ function renderTable() {
                 const td =
                     document.createElement("td");
 
-                td.textContent = cell;
+
+                td.textContent =
+                    cell;
+
 
                 td.className =
                     "px-4 py-3 whitespace-nowrap";
 
+
                 if (index === 0) {
 
                     td.className +=
-                        " font-medium text-slate-600 sticky left-0 bg-white";
+                        " font-medium text-slate-600 " +
+                        "sticky left-0 bg-white";
 
                 } else {
 
@@ -886,6 +1117,7 @@ function renderTable() {
                         " text-slate-700 font-mono";
 
                 }
+
 
                 tr.appendChild(td);
 
@@ -898,15 +1130,17 @@ function renderTable() {
     }
 
 
-    document.getElementById("statusText").textContent =
+    document.getElementById(
+        "statusText"
+    ).textContent =
         "Data generated successfully.";
 
 }
 
 
-/* ---------------------------------------
-   Statistics
---------------------------------------- */
+/* ============================================================
+   STATISTICS
+============================================================ */
 
 function updateStats(
     min,
@@ -915,27 +1149,51 @@ function updateStats(
     columns
 ) {
 
-    document.getElementById("rangeInfo").textContent =
+    document.getElementById(
+        "rangeInfo"
+    ).textContent =
         `${min} – ${max}`;
 
-    document.getElementById("matrixInfo").textContent =
+
+    document.getElementById(
+        "matrixInfo"
+    ).textContent =
         `${rows} × ${columns}`;
 
-    document.getElementById("readingInfo").textContent =
+
+    document.getElementById(
+        "readingInfo"
+    ).textContent =
         `${rows * columns}`;
 
 }
 
 
-/* ---------------------------------------
-   Excel Export
---------------------------------------- */
+/* ============================================================
+   EXCEL EXPORT
+============================================================ */
 
 function exportExcel() {
 
     if (!generatedData.length) {
 
-        alert("Please generate data first.");
+        alert(
+            "Please generate data first."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        typeof XLSX === "undefined"
+    ) {
+
+        alert(
+            "Excel library could not be loaded. " +
+            "Please check your internet connection."
+        );
 
         return;
 
@@ -943,12 +1201,16 @@ function exportExcel() {
 
 
     const worksheet =
-        XLSX.utils.aoa_to_sheet(generatedData);
+        XLSX.utils.aoa_to_sheet(
+            generatedData
+        );
 
 
     worksheet["!cols"] =
         generatedData[0].map(
-            () => ({ wch: 18 })
+            () => ({
+                wch: 18
+            })
         );
 
 
@@ -968,51 +1230,193 @@ function exportExcel() {
         "Thickness_Data.xlsx"
     );
 
+
+    document.getElementById(
+        "statusText"
+    ).textContent =
+        "Excel file downloaded successfully.";
+
 }
 
 
-/* ---------------------------------------
-   Word Export
---------------------------------------- */
+/* ============================================================
+   WORD EXPORT
+============================================================ */
 
 async function exportWord() {
 
     if (!generatedData.length) {
 
-        alert("Please generate data first.");
+        alert(
+            "Please generate data first."
+        );
 
         return;
 
     }
 
 
-    const {
-        Document,
-        Packer,
-        Paragraph,
-        Table,
-        TableRow,
-        TableCell,
-        TextRun,
-        WidthType,
-        AlignmentType
-    } = docx;
+    if (
+        typeof docx === "undefined"
+    ) {
+
+        alert(
+            "Word library could not be loaded. " +
+            "Please check your internet connection."
+        );
+
+        return;
+
+    }
 
 
-    const rows = [];
+    try {
+
+        const {
+            Document,
+            Packer,
+            Paragraph,
+            Table,
+            TableRow,
+            TableCell,
+            TextRun,
+            WidthType,
+            AlignmentType
+        } = docx;
 
 
-    /* Header */
+        const tableRows = [];
 
-    rows.push(
 
-        new TableRow({
+        /* HEADER */
 
-            children:
-                generatedData[0].map(
-                    cell =>
+        tableRows.push(
 
-                    new TableCell({
+            new TableRow({
+
+                children:
+                    generatedData[0].map(
+                        cell => {
+
+                            return new TableCell({
+
+                                children: [
+
+                                    new Paragraph({
+
+                                        alignment:
+                                            AlignmentType.CENTER,
+
+                                        children: [
+
+                                            new TextRun({
+
+                                                text:
+                                                    String(cell),
+
+                                                bold: true
+
+                                            })
+
+                                        ]
+
+                                    })
+
+                                ]
+
+                            });
+
+                        }
+                    )
+
+            })
+
+        );
+
+
+        /* DATA */
+
+        for (
+            let r = 1;
+            r < generatedData.length;
+            r++
+        ) {
+
+            tableRows.push(
+
+                new TableRow({
+
+                    children:
+                        generatedData[r].map(
+                            cell => {
+
+                                return new TableCell({
+
+                                    children: [
+
+                                        new Paragraph({
+
+                                            alignment:
+                                                AlignmentType.CENTER,
+
+                                            children: [
+
+                                                new TextRun({
+
+                                                    text:
+                                                        String(cell)
+
+                                                })
+
+                                            ]
+
+                                        })
+
+                                    ]
+
+                                });
+
+                            }
+                        )
+
+                })
+
+            );
+
+        }
+
+
+        const thicknessTable =
+            new Table({
+
+                width: {
+
+                    size: 100,
+
+                    type:
+                        WidthType.PERCENTAGE
+
+                },
+
+                rows:
+                    tableRows
+
+            });
+
+
+        /*
+            IMPORTANT:
+            Do NOT call this variable "document".
+            It would overwrite the browser's
+            global document object.
+        */
+
+        const wordDocument =
+            new Document({
+
+                sections: [
+
+                    {
 
                         children: [
 
@@ -1026,177 +1430,170 @@ async function exportWord() {
                                     new TextRun({
 
                                         text:
-                                            String(cell),
+                                            "THICKNESS DATA",
 
-                                        bold: true
+                                        bold: true,
+
+                                        size: 28
 
                                     })
 
                                 ]
 
-                            })
+                            }),
+
+
+                            new Paragraph({
+
+                                children: [
+
+                                    new TextRun({
+
+                                        text:
+                                            "Generated Thickness Readings",
+
+                                        italics: true,
+
+                                        size: 20
+
+                                    })
+
+                                ],
+
+                                alignment:
+                                    AlignmentType.CENTER
+
+                            }),
+
+
+                            new Paragraph({
+                                text: ""
+                            }),
+
+
+                            thicknessTable
 
                         ]
 
-                    })
+                    }
 
-                )
+                ]
 
-        })
-
-    );
+            });
 
 
-    /* Data */
+        const blob =
+            await Packer.toBlob(
+                wordDocument
+            );
 
-    for (
-        let r = 1;
-        r < generatedData.length;
-        r++
-    ) {
 
-        rows.push(
+        /*
+            Browser document is now
+            correctly accessible.
+        */
 
-            new TableRow({
+        const downloadLink =
+            document.createElement("a");
 
-                children:
-                    generatedData[r].map(
-                        cell =>
 
-                        new TableCell({
+        const objectUrl =
+            URL.createObjectURL(blob);
 
-                            children: [
 
-                                new Paragraph({
+        downloadLink.href =
+            objectUrl;
 
-                                    alignment:
-                                        AlignmentType.CENTER,
 
-                                    children: [
+        downloadLink.download =
+            "Thickness_Data.docx";
 
-                                        new TextRun({
 
-                                            text:
-                                                String(cell)
+        document.body.appendChild(
+            downloadLink
+        );
 
-                                        })
 
-                                    ]
+        downloadLink.click();
 
-                                })
 
-                            ]
+        downloadLink.remove();
 
-                        })
 
-                    )
+        setTimeout(
+            () => URL.revokeObjectURL(objectUrl),
+            1000
+        );
 
-            })
 
+        document.getElementById(
+            "statusText"
+        ).textContent =
+            "Word file downloaded successfully.";
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Word export error:",
+            error
+        );
+
+
+        alert(
+            "Could not create the Word file.\n\n" +
+            error.message
         );
 
     }
 
-
-    const table =
-        new Table({
-
-            width: {
-
-                size: 100,
-                type: WidthType.PERCENTAGE
-
-            },
-
-            rows
-
-        });
-
-
-    const document =
-        new Document({
-
-            sections: [
-
-                {
-
-                    children: [
-
-                        new Paragraph({
-
-                            alignment:
-                                AlignmentType.CENTER,
-
-                            children: [
-
-                                new TextRun({
-
-                                    text:
-                                        "THICKNESS DATA",
-
-                                    bold: true,
-                                    size: 28
-
-                                })
-
-                            ]
-
-                        }),
-
-                        new Paragraph({
-
-                            text: ""
-
-                        }),
-
-                        table
-
-                    ]
-
-                }
-
-            ]
-
-        });
-
-
-    const blob =
-        await Packer.toBlob(document);
-
-
-    const link =
-        document.createElement("a");
-
-    link.href =
-        URL.createObjectURL(blob);
-
-    link.download =
-        "Thickness_Data.docx";
-
-    link.click();
-
-    URL.revokeObjectURL(link.href);
-
 }
 
 
-/* ---------------------------------------
-   Export selector
---------------------------------------- */
+/* ============================================================
+   EXPORT
+============================================================ */
 
 function exportData() {
 
-    const format =
+    if (!generatedData.length) {
+
+        alert(
+            "Please generate data first."
+        );
+
+        return;
+
+    }
+
+
+    const selected =
         document.querySelector(
             'input[name="format"]:checked'
-        ).value;
+        );
 
 
-    if (format === "excel") {
+    if (!selected) {
+
+        alert(
+            "Please select an export format."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        selected.value === "excel"
+    ) {
 
         exportExcel();
 
-    } else {
+    }
+
+    else {
 
         exportWord();
 
@@ -1205,15 +1602,17 @@ function exportData() {
 }
 
 
-/* ---------------------------------------
-   Copy data
---------------------------------------- */
+/* ============================================================
+   COPY
+============================================================ */
 
 async function copyData() {
 
     if (!generatedData.length) {
 
-        alert("Please generate data first.");
+        alert(
+            "Please generate data first."
+        );
 
         return;
 
@@ -1222,74 +1621,110 @@ async function copyData() {
 
     const text =
         generatedData
-            .map(row => row.join("\t"))
+            .map(
+                row =>
+                    row.join("\t")
+            )
             .join("\n");
 
 
     try {
 
-        await navigator.clipboard.writeText(text);
+        await navigator.clipboard.writeText(
+            text
+        );
 
-        document.getElementById("statusText").textContent =
+
+        document.getElementById(
+            "statusText"
+        ).textContent =
             "Data copied to clipboard.";
 
-    } catch (error) {
+    }
 
-        alert("Unable to copy data.");
+    catch (error) {
+
+        alert(
+            "Unable to copy data."
+        );
 
     }
 
 }
 
 
-/* ---------------------------------------
-   Reset
---------------------------------------- */
+/* ============================================================
+   RESET
+============================================================ */
 
 function clearData() {
 
-    document.getElementById("minThickness").value =
-        "4.55";
+    document.getElementById(
+        "minThickness"
+    ).value = "4.55";
 
-    document.getElementById("maxThickness").value =
-        "5.67";
 
-    document.getElementById("decimalPlaces").value =
-        "2";
+    document.getElementById(
+        "maxThickness"
+    ).value = "5.67";
 
-    document.getElementById("rows").value =
-        "10";
 
-    document.getElementById("columns").value =
-        "8";
+    document.getElementById(
+        "decimalPlaces"
+    ).value = "2";
 
-    document.getElementById("columnFormat").value =
-        "T-";
 
-    document.getElementById("columnStart").value =
-        "1";
+    document.getElementById(
+        "rows"
+    ).value = "10";
 
-    document.getElementById("rowFormat").value =
-        "Distance-";
 
-    document.getElementById("rowStart").value =
-        "1";
+    document.getElementById(
+        "columns"
+    ).value = "8";
+
+
+    document.getElementById(
+        "columnFormat"
+    ).value = "T-";
+
+
+    document.getElementById(
+        "columnStart"
+    ).value = "1";
+
+
+    document.getElementById(
+        "rowFormat"
+    ).value = "Distance-";
+
+
+    document.getElementById(
+        "rowStart"
+    ).value = "1";
 
 
     generatedData = [];
 
 
-    document.getElementById("tableHead").innerHTML =
-        "";
-
-    document.getElementById("tableBody").innerHTML =
-        "";
-
-    document.getElementById("emptyState").style.display =
-        "block";
+    document.getElementById(
+        "tableHead"
+    ).innerHTML = "";
 
 
-    document.getElementById("statusText").textContent =
+    document.getElementById(
+        "tableBody"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "emptyState"
+    ).style.display = "block";
+
+
+    document.getElementById(
+        "statusText"
+    ).textContent =
         "Configure settings and click Generate.";
 
 
@@ -1303,13 +1738,17 @@ function clearData() {
 }
 
 
-/* ---------------------------------------
-   Generate initial preview
---------------------------------------- */
+/* ============================================================
+   INITIAL PREVIEW
+============================================================ */
 
 window.addEventListener(
     "DOMContentLoaded",
-    () => generateData()
+    function () {
+
+        generateData();
+
+    }
 );
 
 </script>
