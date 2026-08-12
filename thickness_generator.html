@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Precision Thickness Data Generator</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+    <!-- Word -->
+    <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background:
+                radial-gradient(circle at 10% 10%, rgba(14,165,233,.10), transparent 30%),
+                radial-gradient(circle at 90% 20%, rgba(99,102,241,.08), transparent 30%),
+                #f8fafc;
+        }
+
+        .glass {
+            background: rgba(255,255,255,.86);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .number-input::-webkit-inner-spin-button,
+        .number-input::-webkit-outer-spin-button {
+            opacity: 1;
+        }
+
+        .table-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .table-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 999px;
+        }
+
+        .fade-in {
+            animation: fadeIn .35s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-slate-800">
+
+<div class="max-w-7xl mx-auto px-4 py-8 md:px-8">
+
+    <!-- Header -->
+    <header class="mb-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full
+                            bg-sky-100 text-sky-700 text-xs font-semibold mb-3">
+                    <span class="w-2 h-2 bg-sky-500 rounded-full"></span>
+                    Thickness Data Utility
+                </div>
+
+                <h1 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
+                    Precision Thickness Data Generator
+                </h1>
+
+                <p class="mt-2 text-slate-500 max-w-2xl">
+                    Generate realistic-looking thickness readings within a defined
+                    range and export them directly to Excel or Word.
+                </p>
+            </div>
+
+            <div class="hidden md:flex items-center justify-center w-14 h-14 rounded-2xl
+                        bg-sky-600 text-white shadow-lg shadow-sky-600/20">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     class="w-7 h-7"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="1.7"
+                          d="M9 3v2m6-2v2M4 8h16M5 5h14a1 1 0 011 1v13a1 1 0 01-1 1H5a1 1 0 01-1-1V6a1 1 0 011-1z"/>
+                </svg>
+            </div>
+
+        </div>
+    </header>
+
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+
+        <!-- Settings -->
+        <section class="xl:col-span-4">
+
+            <div class="glass rounded-3xl border border-white shadow-xl shadow-slate-200/50 p-6">
+
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-600
+                                flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="w-5 h-5"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="1.8"
+                                  d="M12 6v12m-6-6h12"/>
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h2 class="font-bold text-lg text-slate-900">
+                            Generator Settings
+                        </h2>
+                        <p class="text-xs text-slate-500">
+                            Configure your thickness matrix
+                        </p>
+                    </div>
+                </div>
+
+
+                <!-- Thickness Range -->
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold mb-2">
+                        Thickness Range
+                    </label>
+
+                    <div class="grid grid-cols-2 gap-3">
+
+                        <div>
+                            <label class="text-xs text-slate-500 mb-1 block">
+                                Minimum
+                            </label>
+
+                            <input
+                                id="minThickness"
+                                type="number"
+                                step="any"
+                                value="4.55"
+                                class="number-input w-full px-4 py-3 rounded-xl
+                                       border border-slate-200 bg-white
+                                       focus:outline-none focus:ring-4
+                                       focus:ring-sky-100 focus:border-sky-500"
+                            >
+                        </div>
+
+                        <div>
+                            <label class="text-xs text-slate-500 mb-1 block">
+                                Maximum
+                            </label>
+
+                            <input
+                                id="maxThickness"
+                                type="number"
+                                step="any"
+                                value="5.67"
+                                class="number-input w-full px-4 py-3 rounded-xl
+                                       border border-slate-200 bg-white
+                                       focus:outline-none focus:ring-4
+                                       focus:ring-sky-100 focus:border-sky-500"
+                            >
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Decimal Places -->
+                <div class="mb-6">
+
+                    <label class="block text-sm font-semibold mb-2">
+                        Decimal Places
+                    </label>
+
+                    <select
+                        id="decimalPlaces"
+                        class="w-full px-4 py-3 rounded-xl border border-slate-200
+                               bg-white focus:outline-none focus:ring-4
+                               focus:ring-sky-100 focus:border-sky-500">
+
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+
+                    </select>
+                </div>
+
+
+                <!-- Rows / Columns -->
+                <div class="mb-6">
+
+                    <label class="block text-sm font-semibold mb-2">
+                        Matrix Size
+                    </label>
+
+                    <div class="grid grid-cols-2 gap-3">
+
+                        <div>
+                            <label class="text-xs text-slate-500 mb-1 block">
+                                Rows
+                            </label>
+
+                            <input
+                                id="rows"
+                                type="number"
+                                min="1"
+                                max="500"
+                                value="10"
+                                class="number-input w-full px-4 py-3 rounded-xl
+                                       border border-slate-200 bg-white
+                                       focus:outline-none focus:ring-4
+                                       focus:ring-sky-100 focus:border-sky-500"
+                            >
+                        </div>
+
+                        <div>
+                            <label class="text-xs text-slate-500 mb-1 block">
+                                Columns
+                            </label>
+
+                            <input
+                                id="columns"
+                                type="number"
+                                min="1"
+                                max="100"
+                                value="8"
+                                class="number-input w-full px-4 py-3 rounded-xl
+                                       border border-slate-200 bg-white
+                                       focus:outline-none focus:ring-4
+                                       focus:ring-sky-100 focus:border-sky-500"
+                            >
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Column Labels -->
+                <div class="mb-6">
+
+                    <div class="flex items-center justify-between mb-2">
+
+                        <label class="text-sm font-semibold">
+                            Column Labels
+                        </label>
+
+                        <span class="text-xs text-slate-400">
+                            Example: T-1
+                        </span>
+
+                    </div>
+
+                    <select
+                        id="columnFormat"
+                        class="w-full px-4 py-3 rounded-xl border border-slate-200
+                               bg-white mb-3 focus:outline-none focus:ring-4
+                               focus:ring-sky-100 focus:border-sky-500">
+
+                        <option value="T-">T-1, T-2, T-3...</option>
+                        <option value="">No label prefix</option>
+
+                    </select>
+
+                    <input
+                        id="columnStart"
+                        type="number"
+                        value="1"
+                        min="0"
+                        class="number-input w-full px-4 py-3 rounded-xl
+                               border border-slate-200 bg-white
+                               focus:outline-none focus:ring-4
+                               focus:ring-sky-100 focus:border-sky-500"
+                        placeholder="Column label start"
+                    >
+
+                </div>
+
+
+                <!-- Row Labels -->
+                <div class="mb-6">
+
+                    <div class="flex items-center justify-between mb-2">
+
+                        <label class="text-sm font-semibold">
+                            Row Labels
+                        </label>
+
+                        <span class="text-xs text-slate-400">
+                            Example: Distance-1
+                        </span>
+
+                    </div>
+
+                    <select
+                        id="rowFormat"
+                        class="w-full px-4 py-3 rounded-xl border border-slate-200
+                               bg-white mb-3 focus:outline-none focus:ring-4
+                               focus:ring-sky-100 focus:border-sky-500">
+
+                        <option value="Distance-">
+                            Distance-1, Distance-2...
+                        </option>
+
+                        <option value="">
+                            No label prefix
+                        </option>
+
+                    </select>
+
+                    <input
+                        id="rowStart"
+                        type="number"
+                        value="1"
+                        min="0"
+                        class="number-input w-full px-4 py-3 rounded-xl
+                               border border-slate-200 bg-white
+                               focus:outline-none focus:ring-4
+                               focus:ring-sky-100 focus:border-sky-500"
+                        placeholder="Row label start"
+                    >
+
+                </div>
+
+
+                <!-- Export Format -->
+                <div class="mb-6">
+
+                    <label class="block text-sm font-semibold mb-2">
+                        Export Format
+                    </label>
+
+                    <div class="grid grid-cols-2 gap-3">
+
+                        <label class="cursor-pointer">
+
+                            <input
+                                type="radio"
+                                name="format"
+                                value="excel"
+                                checked
+                                class="peer hidden"
+                            >
+
+                            <div class="p-4 rounded-xl border-2 border-slate-200
+                                        peer-checked:border-sky-500
+                                        peer-checked:bg-sky-50 transition">
+
+                                <div class="font-bold text-sm">
+                                    Excel
+                                </div>
+
+                                <div class="text-xs text-slate-500 mt-1">
+                                    .xlsx
+                                </div>
+
+                            </div>
+
+                        </label>
+
+
+                        <label class="cursor-pointer">
+
+                            <input
+                                type="radio"
+                                name="format"
+                                value="word"
+                                class="peer hidden"
+                            >
+
+                            <div class="p-4 rounded-xl border-2 border-slate-200
+                                        peer-checked:border-sky-500
+                                        peer-checked:bg-sky-50 transition">
+
+                                <div class="font-bold text-sm">
+                                    Word
+                                </div>
+
+                                <div class="text-xs text-slate-500 mt-1">
+                                    .docx
+                                </div>
+
+                            </div>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="grid grid-cols-2 gap-3">
+
+                    <button
+                        onclick="generateData()"
+                        class="py-3.5 px-4 rounded-xl bg-sky-600
+                               hover:bg-sky-700 text-white font-semibold
+                               shadow-lg shadow-sky-600/20 transition
+                               active:scale-[.98]">
+
+                        Generate
+
+                    </button>
+
+                    <button
+                        onclick="clearData()"
+                        class="py-3.5 px-4 rounded-xl bg-slate-100
+                               hover:bg-slate-200 text-slate-700
+                               font-semibold transition">
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Preview -->
+        <section class="xl:col-span-8">
+
+            <div class="glass rounded-3xl border border-white shadow-xl
+                        shadow-slate-200/50 overflow-hidden">
+
+                <!-- Preview Header -->
+                <div class="p-6 border-b border-slate-100">
+
+                    <div class="flex flex-col sm:flex-row sm:items-center
+                                sm:justify-between gap-4">
+
+                        <div>
+
+                            <h2 class="font-bold text-lg text-slate-900">
+                                Data Preview
+                            </h2>
+
+                            <p id="statusText"
+                               class="text-xs text-slate-500 mt-1">
+                                Configure settings and click Generate.
+                            </p>
+
+                        </div>
+
+                        <div class="flex gap-2">
+
+                            <button
+                                onclick="copyData()"
+                                class="px-4 py-2.5 rounded-xl bg-slate-100
+                                       hover:bg-slate-200 text-sm font-semibold
+                                       text-slate-700 transition">
+
+                                Copy
+
+                            </button>
+
+                            <button
+                                onclick="exportData()"
+                                class="px-4 py-2.5 rounded-xl bg-slate-900
+                                       hover:bg-slate-800 text-white text-sm
+                                       font-semibold transition">
+
+                                Export
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Table -->
+                <div class="table-scroll overflow-auto max-h-[650px]">
+
+                    <table class="w-full text-sm border-collapse">
+
+                        <thead
+                            id="tableHead"
+                            class="sticky top-0 bg-slate-100 z-10">
+                        </thead>
+
+                        <tbody
+                            id="tableBody"
+                            class="divide-y divide-slate-100">
+                        </tbody>
+
+                    </table>
+
+                    <div
+                        id="emptyState"
+                        class="py-24 text-center text-slate-400">
+
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl
+                                    bg-slate-100 flex items-center justify-center">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="w-7 h-7"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="1.7"
+                                      d="M4 6h16M4 12h16M4 18h16"/>
+
+                            </svg>
+
+                        </div>
+
+                        <p class="font-medium">
+                            No data generated yet
+                        </p>
+
+                        <p class="text-xs mt-1">
+                            Your generated thickness matrix will appear here.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Info Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-5">
+
+                    <p class="text-xs text-slate-400 uppercase tracking-wider">
+                        Range
+                    </p>
+
+                    <p id="rangeInfo"
+                       class="font-bold text-lg mt-1">
+                        4.55 – 5.67
+                    </p>
+
+                </div>
+
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-5">
+
+                    <p class="text-xs text-slate-400 uppercase tracking-wider">
+                        Matrix
+                    </p>
+
+                    <p id="matrixInfo"
+                       class="font-bold text-lg mt-1">
+                        10 × 8
+                    </p>
+
+                </div>
+
+
+                <div class="bg-white rounded-2xl border border-slate-200 p-5">
+
+                    <p class="text-xs text-slate-400 uppercase tracking-wider">
+                        Readings
+                    </p>
+
+                    <p id="readingInfo"
+                       class="font-bold text-lg mt-1">
+                        80
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-400 mt-10 pb-4">
+        Precision Thickness Data Generator
+    </footer>
+
+</div>
+
+
+<script>
+
+let generatedData = [];
+
+
+/* ---------------------------------------
+   Generate random thickness
+--------------------------------------- */
+
+function randomThickness(min, max, decimals) {
+
+    const value = Math.random() * (max - min) + min;
+
+    return Number(value.toFixed(decimals));
+
+}
+
+
+/* ---------------------------------------
+   Generate data
+--------------------------------------- */
+
+function generateData() {
+
+    const min = parseFloat(
+        document.getElementById("minThickness").value
+    );
+
+    const max = parseFloat(
+        document.getElementById("maxThickness").value
+    );
+
+    const decimals = parseInt(
+        document.getElementById("decimalPlaces").value
+    );
+
+    const rows = parseInt(
+        document.getElementById("rows").value
+    );
+
+    const columns = parseInt(
+        document.getElementById("columns").value
+    );
+
+    const columnFormat =
+        document.getElementById("columnFormat").value;
+
+    const columnStart =
+        parseInt(document.getElementById("columnStart").value);
+
+    const rowFormat =
+        document.getElementById("rowFormat").value;
+
+    const rowStart =
+        parseInt(document.getElementById("rowStart").value);
+
+
+    if (
+        Number.isNaN(min) ||
+        Number.isNaN(max) ||
+        min >= max
+    ) {
+
+        alert("Please enter a valid minimum and maximum thickness.");
+
+        return;
+
+    }
+
+
+    if (
+        rows < 1 ||
+        columns < 1
+    ) {
+
+        alert("Rows and columns must be at least 1.");
+
+        return;
+
+    }
+
+
+    generatedData = [];
+
+
+    /* Header */
+
+    const header = [];
+
+    if (rowFormat !== "") {
+
+        header.push("Distance");
+
+    }
+
+
+    for (let c = 0; c < columns; c++) {
+
+        const labelNumber = columnStart + c;
+
+        header.push(
+            columnFormat === ""
+                ? String(labelNumber)
+                : columnFormat + labelNumber
+        );
+
+    }
+
+
+    generatedData.push(header);
+
+
+    /* Rows */
+
+    for (let r = 0; r < rows; r++) {
+
+        const row = [];
+
+        if (rowFormat !== "") {
+
+            const labelNumber = rowStart + r;
+
+            row.push(
+                rowFormat + labelNumber
+            );
+
+        }
+
+
+        for (let c = 0; c < columns; c++) {
+
+            row.push(
+                randomThickness(
+                    min,
+                    max,
+                    decimals
+                )
+            );
+
+        }
+
+        generatedData.push(row);
+
+    }
+
+
+    renderTable();
+
+    updateStats(
+        min,
+        max,
+        rows,
+        columns
+    );
+
+}
+
+
+/* ---------------------------------------
+   Render table
+--------------------------------------- */
+
+function renderTable() {
+
+    const head =
+        document.getElementById("tableHead");
+
+    const body =
+        document.getElementById("tableBody");
+
+    const empty =
+        document.getElementById("emptyState");
+
+
+    head.innerHTML = "";
+    body.innerHTML = "";
+
+
+    if (!generatedData.length) {
+
+        empty.style.display = "block";
+
+        return;
+
+    }
+
+
+    empty.style.display = "none";
+
+
+    /* Header */
+
+    const headerRow =
+        document.createElement("tr");
+
+
+    generatedData[0].forEach(
+        (cell, index) => {
+
+            const th =
+                document.createElement("th");
+
+            th.textContent = cell;
+
+            th.className =
+                "px-4 py-3 text-left font-semibold text-slate-600 whitespace-nowrap";
+
+            if (index === 0) {
+
+                th.className +=
+                    " sticky left-0 bg-slate-100";
+
+            }
+
+            headerRow.appendChild(th);
+
+        }
+    );
+
+
+    head.appendChild(headerRow);
+
+
+    /* Body */
+
+    for (let r = 1; r < generatedData.length; r++) {
+
+        const tr =
+            document.createElement("tr");
+
+        tr.className =
+            "hover:bg-sky-50/50 transition";
+
+
+        generatedData[r].forEach(
+            (cell, index) => {
+
+                const td =
+                    document.createElement("td");
+
+                td.textContent = cell;
+
+                td.className =
+                    "px-4 py-3 whitespace-nowrap";
+
+                if (index === 0) {
+
+                    td.className +=
+                        " font-medium text-slate-600 sticky left-0 bg-white";
+
+                } else {
+
+                    td.className +=
+                        " text-slate-700 font-mono";
+
+                }
+
+                tr.appendChild(td);
+
+            }
+        );
+
+
+        body.appendChild(tr);
+
+    }
+
+
+    document.getElementById("statusText").textContent =
+        "Data generated successfully.";
+
+}
+
+
+/* ---------------------------------------
+   Statistics
+--------------------------------------- */
+
+function updateStats(
+    min,
+    max,
+    rows,
+    columns
+) {
+
+    document.getElementById("rangeInfo").textContent =
+        `${min} – ${max}`;
+
+    document.getElementById("matrixInfo").textContent =
+        `${rows} × ${columns}`;
+
+    document.getElementById("readingInfo").textContent =
+        `${rows * columns}`;
+
+}
+
+
+/* ---------------------------------------
+   Excel Export
+--------------------------------------- */
+
+function exportExcel() {
+
+    if (!generatedData.length) {
+
+        alert("Please generate data first.");
+
+        return;
+
+    }
+
+
+    const worksheet =
+        XLSX.utils.aoa_to_sheet(generatedData);
+
+
+    worksheet["!cols"] =
+        generatedData[0].map(
+            () => ({ wch: 18 })
+        );
+
+
+    const workbook =
+        XLSX.utils.book_new();
+
+
+    XLSX.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        "Thickness Data"
+    );
+
+
+    XLSX.writeFile(
+        workbook,
+        "Thickness_Data.xlsx"
+    );
+
+}
+
+
+/* ---------------------------------------
+   Word Export
+--------------------------------------- */
+
+async function exportWord() {
+
+    if (!generatedData.length) {
+
+        alert("Please generate data first.");
+
+        return;
+
+    }
+
+
+    const {
+        Document,
+        Packer,
+        Paragraph,
+        Table,
+        TableRow,
+        TableCell,
+        TextRun,
+        WidthType,
+        AlignmentType
+    } = docx;
+
+
+    const rows = [];
+
+
+    /* Header */
+
+    rows.push(
+
+        new TableRow({
+
+            children:
+                generatedData[0].map(
+                    cell =>
+
+                    new TableCell({
+
+                        children: [
+
+                            new Paragraph({
+
+                                alignment:
+                                    AlignmentType.CENTER,
+
+                                children: [
+
+                                    new TextRun({
+
+                                        text:
+                                            String(cell),
+
+                                        bold: true
+
+                                    })
+
+                                ]
+
+                            })
+
+                        ]
+
+                    })
+
+                )
+
+        })
+
+    );
+
+
+    /* Data */
+
+    for (
+        let r = 1;
+        r < generatedData.length;
+        r++
+    ) {
+
+        rows.push(
+
+            new TableRow({
+
+                children:
+                    generatedData[r].map(
+                        cell =>
+
+                        new TableCell({
+
+                            children: [
+
+                                new Paragraph({
+
+                                    alignment:
+                                        AlignmentType.CENTER,
+
+                                    children: [
+
+                                        new TextRun({
+
+                                            text:
+                                                String(cell)
+
+                                        })
+
+                                    ]
+
+                                })
+
+                            ]
+
+                        })
+
+                    )
+
+            })
+
+        );
+
+    }
+
+
+    const table =
+        new Table({
+
+            width: {
+
+                size: 100,
+                type: WidthType.PERCENTAGE
+
+            },
+
+            rows
+
+        });
+
+
+    const document =
+        new Document({
+
+            sections: [
+
+                {
+
+                    children: [
+
+                        new Paragraph({
+
+                            alignment:
+                                AlignmentType.CENTER,
+
+                            children: [
+
+                                new TextRun({
+
+                                    text:
+                                        "THICKNESS DATA",
+
+                                    bold: true,
+                                    size: 28
+
+                                })
+
+                            ]
+
+                        }),
+
+                        new Paragraph({
+
+                            text: ""
+
+                        }),
+
+                        table
+
+                    ]
+
+                }
+
+            ]
+
+        });
+
+
+    const blob =
+        await Packer.toBlob(document);
+
+
+    const link =
+        document.createElement("a");
+
+    link.href =
+        URL.createObjectURL(blob);
+
+    link.download =
+        "Thickness_Data.docx";
+
+    link.click();
+
+    URL.revokeObjectURL(link.href);
+
+}
+
+
+/* ---------------------------------------
+   Export selector
+--------------------------------------- */
+
+function exportData() {
+
+    const format =
+        document.querySelector(
+            'input[name="format"]:checked'
+        ).value;
+
+
+    if (format === "excel") {
+
+        exportExcel();
+
+    } else {
+
+        exportWord();
+
+    }
+
+}
+
+
+/* ---------------------------------------
+   Copy data
+--------------------------------------- */
+
+async function copyData() {
+
+    if (!generatedData.length) {
+
+        alert("Please generate data first.");
+
+        return;
+
+    }
+
+
+    const text =
+        generatedData
+            .map(row => row.join("\t"))
+            .join("\n");
+
+
+    try {
+
+        await navigator.clipboard.writeText(text);
+
+        document.getElementById("statusText").textContent =
+            "Data copied to clipboard.";
+
+    } catch (error) {
+
+        alert("Unable to copy data.");
+
+    }
+
+}
+
+
+/* ---------------------------------------
+   Reset
+--------------------------------------- */
+
+function clearData() {
+
+    document.getElementById("minThickness").value =
+        "4.55";
+
+    document.getElementById("maxThickness").value =
+        "5.67";
+
+    document.getElementById("decimalPlaces").value =
+        "2";
+
+    document.getElementById("rows").value =
+        "10";
+
+    document.getElementById("columns").value =
+        "8";
+
+    document.getElementById("columnFormat").value =
+        "T-";
+
+    document.getElementById("columnStart").value =
+        "1";
+
+    document.getElementById("rowFormat").value =
+        "Distance-";
+
+    document.getElementById("rowStart").value =
+        "1";
+
+
+    generatedData = [];
+
+
+    document.getElementById("tableHead").innerHTML =
+        "";
+
+    document.getElementById("tableBody").innerHTML =
+        "";
+
+    document.getElementById("emptyState").style.display =
+        "block";
+
+
+    document.getElementById("statusText").textContent =
+        "Configure settings and click Generate.";
+
+
+    updateStats(
+        4.55,
+        5.67,
+        10,
+        8
+    );
+
+}
+
+
+/* ---------------------------------------
+   Generate initial preview
+--------------------------------------- */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    () => generateData()
+);
+
+</script>
+
+</body>
+</html>
